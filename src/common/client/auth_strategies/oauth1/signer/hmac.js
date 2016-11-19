@@ -7,16 +7,6 @@
       rfc3986Encode = RAML.Client.AuthStrategies.Oauth1.Signer.rfc3986Encode,
       setRequestHeader = RAML.Client.AuthStrategies.Oauth1.Signer.setRequestHeader;
 
-  function generateSignature(params, request, key) {
-    params.oauth_signature_method = 'HMAC-SHA1';
-    params.oauth_timestamp = Math.floor(Date.now() / 1000);
-    params.oauth_nonce = CryptoJS.lib.WordArray.random(16).toString();
-
-    var data = Hmac.constructHmacText(request, params);
-    var hash = CryptoJS.HmacSHA1(data, key);
-    params.oauth_signature = hash.toString(CryptoJS.enc.Base64);
-  }
-
   var Hmac = {
     constructHmacText: function(request, oauthParams) {
       var options = request.toOptions();
@@ -69,6 +59,16 @@
       return result.map(function(tuple) { return tuple.join('='); }).join('&');
     }
   };
+
+  function generateSignature(params, request, key) {
+    params.oauth_signature_method = 'HMAC-SHA1';
+    params.oauth_timestamp = Math.floor(Date.now() / 1000);
+    params.oauth_nonce = CryptoJS.lib.WordArray.random(16).toString();
+
+    var data = Hmac.constructHmacText(request, params);
+    var hash = CryptoJS.HmacSHA1(data, key);
+    params.oauth_signature = hash.toString(CryptoJS.enc.Base64);
+  }
 
   Hmac.Temporary = function(consumerCredentials) {
     this.consumerCredentials = consumerCredentials;

@@ -11,6 +11,12 @@
           });
         }
 
+        var validation      = $parse($attrs.validate)($scope);
+        var validationId    = validation.id;
+        var sanitationRules = {};
+        var validationRules = {};
+        var control         = $ctrl;
+
         function validate(value) {
           var sanitizer = (new RAMLSanitize())(sanitationRules);
           var validator = (new RAMLValidate())(validationRules);
@@ -31,12 +37,6 @@
             return value;
           }
         }
-
-        var validation      = $parse($attrs.validate)($scope);
-        var validationId    = validation.id;
-        var sanitationRules = {};
-        var validationRules = {};
-        var control         = $ctrl;
 
         if (validation && validation.type) {
           var declaredType = RAML.Inspector.Types.findType(validation.type[0], $scope.types);

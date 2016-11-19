@@ -1,5 +1,7 @@
 'use strict';
 
+var serveStatic = require('serve-static');
+
 module.exports = function (grunt) {
   require('load-grunt-tasks')(grunt);
 
@@ -53,9 +55,9 @@ module.exports = function (grunt) {
         options: {
           livereload: true,
           open:       true,
-          middleware: function (connect) {
+          middleware: function () {
             return [
-              connect.static('dist')
+              serveStatic('dist')
             ];
           }
         }
@@ -65,10 +67,10 @@ module.exports = function (grunt) {
         options: {
           livereload: true,
           open:       false,
-          middleware: function (connect) {
+          middleware: function () {
             return [
-              connect.static('dist'),
-              connect.static('test/regression/assets'),
+              serveStatic('dist'),
+              serveStatic('test/regression/assets'),
             ];
           }
         }
