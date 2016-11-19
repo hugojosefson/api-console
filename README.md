@@ -160,6 +160,7 @@ To run tests, you'll need the following:
 * [NPM](https://npmjs.org/)
 * [Ruby](https://www.ruby-lang.org)
 * [Java](https://www.java.com/)
+* [Chromium](https://www.chromium.org/getting-involved/download-chromium) or [Chrome](https://www.google.com/chrome/browser/desktop/)
 
 ### First Time Setup
 
